@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'thor'
+require 'bday/server'
+
+class BDayApp < Thor
+  desc 'server', 'run server'
+  method_option :host, :type => :string, :aliases => '-h', :default => 'localhost'
+  method_option :port, :type => :numeric, :aliases => '-p', :default => 10023
+  method_option :name, :type => :string, :aliases => '-n'
+  def server
+    BDay::Server.new.run options.host, options.port, options.name
+  end
+end
+
+BDayApp.start
